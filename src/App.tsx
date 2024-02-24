@@ -20,13 +20,9 @@ import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router-v6";
 import { BlogPostList, BlogPostCreate, BlogPostEdit, BlogPostShow } from "./pages/blog-posts";
 import { CategoryList, CategoryCreate, CategoryEdit, CategoryShow } from "./pages/categories";
-import { ColorModeContextProvider } from "./contexts/color-mode";
-import { Header } from "./components/header";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { ForgotPassword } from "./pages/forgotPassword";
-import { authProvider } from "./authProvider";
-
 const API_URL = "https://api.nestjs-query.refine.dev/graphql";
 const WS_URL = "wss://api.nestjs-query.refine.dev/graphql";
 
@@ -45,14 +41,13 @@ function App() {
         <BrowserRouter>
         <GitHubBanner />
         <RefineKbarProvider>
-            <ColorModeContextProvider>
 <AntdApp>
             <DevtoolsProvider>
                 <Refine dataProvider={dataProvider(gqlClient)}
 liveProvider={liveProvider(wsClient)}
 notificationProvider={useNotificationProvider}
 routerProvider={routerBindings}
-authProvider={authProvider} 
+// authProvider={} 
                         resources={[
                             {
                                 name: "blog_posts",
@@ -91,7 +86,7 @@ authProvider={authProvider}
                                     fallback={<CatchAllNavigate to="/login" />}
                                 >
                                         <ThemedLayoutV2
-                                            Header={() => <Header sticky />}
+                                        
                                             Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                                         >
                                             <Outlet />
@@ -137,7 +132,6 @@ authProvider={authProvider}
             <DevtoolsPanel />
             </DevtoolsProvider>
             </AntdApp>
-</ColorModeContextProvider>
         </RefineKbarProvider>
         </BrowserRouter>
       );
